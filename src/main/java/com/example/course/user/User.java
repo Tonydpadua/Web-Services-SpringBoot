@@ -1,6 +1,7 @@
 package com.example.course.user;
 
 import com.example.course.order.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,8 +28,8 @@ public class User implements Serializable {
 	private String email;
 	private String phone;
 	private String password;
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
-	//@JoinColumn(name="")
 	private List<Order> orders = new ArrayList<>();
 
 

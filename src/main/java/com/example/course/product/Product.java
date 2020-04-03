@@ -2,6 +2,7 @@ package com.example.course.product;
 
 import com.example.course.category.Category;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,7 +30,9 @@ public class Product implements Serializable {
 
     private String imgUrl;
 
-    @Transient
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name="product_id"), inverseJoinColumns = @JoinColumn(name="category_id"))
     private Set<Category> categories = new HashSet<>();
 
     public Product(Long id,String name,String description,double price,String imgUrl) {

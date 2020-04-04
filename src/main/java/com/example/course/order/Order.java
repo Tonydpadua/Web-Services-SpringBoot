@@ -1,6 +1,7 @@
 package com.example.course.order;
 
 import com.example.course.orderItem.OrderItem;
+import com.example.course.payment.Payment;
 import com.example.course.user.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,7 +16,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @NoArgsConstructor
-//@Data
+@Data
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable {
@@ -34,9 +35,21 @@ public class Order implements Serializable {
 
     private Integer orderStatus;
 
-    //@JsonIgnore
     @OneToMany(mappedBy = "id.order")
     Set<OrderItem> items = new HashSet<>();
+
+    @OneToOne(mappedBy = "order",cascade=CascadeType.ALL)
+    private Payment payment;
+
+
+
+    public Order(Long id,Instant moment,OrderStatus orderStatus,User client) {
+        super();
+        this.id=id;
+        this.moment=moment;
+        setOrderStatus(orderStatus);
+        this.client=client;
+    }
 
     public OrderStatus getOrderStatus(){
         return OrderStatus.valueOf(orderStatus);
@@ -52,13 +65,6 @@ public class Order implements Serializable {
         return items;
     }
 
-    public Order(Long id,Instant moment,OrderStatus orderStatus,User client) {
-        super();
-        this.id=id;
-        this.moment=moment;
-        setOrderStatus(orderStatus);
-        this.client=client;
-    }
 
     public Long getId() {
         return id;
@@ -104,4 +110,6 @@ public class Order implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
 }

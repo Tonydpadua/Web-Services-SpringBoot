@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
-
+@Data
 @Embeddable
 public class OrderItemPK implements Serializable {
 
@@ -23,19 +23,5 @@ public class OrderItemPK implements Serializable {
     private Product product;
 
 
-    public Order getOrder() {
-        return order;
-    }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 }

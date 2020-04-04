@@ -1,6 +1,7 @@
 package com.example.course.user;
 
 
+import com.example.course.exceptions.RestControllerNotFoundException;
 import org.springframework.stereotype.Service;
 
 
@@ -23,7 +24,7 @@ public class UserService {
 
     public User findById(Long id){
         Optional<User> user = userRepository.findById(id);
-        return user.get();
+        return user.orElseThrow(()-> new RestControllerNotFoundException(id));
     }
 
     public User insert(User user){

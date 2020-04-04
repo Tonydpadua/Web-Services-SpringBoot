@@ -1,6 +1,7 @@
 package com.example.course.payment;
 
 import com.example.course.order.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,8 @@ public class Payment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Instant moment;
+
+    @JsonIgnore
     @OneToOne
     @MapsId
     private Order order;
